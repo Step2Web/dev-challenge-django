@@ -6,7 +6,7 @@ import json
 @require_POST
 @csrf_exempt
 def calculate(request):
-    params = json.loads(request.body)
+    params = json.loads(request.body.decode("utf-8"))
     savings_amount = params.get('savingsAmount', None)
     interest_rate = params.get('interestRate', None)
 
