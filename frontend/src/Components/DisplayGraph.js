@@ -55,9 +55,12 @@ export default class DisplayGraph extends Component {
   		}, baseProps)
 		};
 
+        const marginYValue = 1.1;
+        const yValue = marginYValue * Math.max.apply(Math, data.map(function(item) {return item.amount}));
+
 		return (
 			<div>
-				<VictoryChart animate={{duration: 100}} theme={theme}>
+				<VictoryChart animate={{duration: 100}} theme={theme} domain={{ y: [0, yValue]}}>
 					<VictoryLine {...{data}} y="amount"/>
 				</VictoryChart>
 			</div>
