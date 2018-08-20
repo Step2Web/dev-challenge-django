@@ -1,9 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import axios from 'axios'
+import moxios from 'moxios'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('App renders', function() {
+
+    beforeEach(function () {
+      // import and pass your custom axios instance to this method
+      moxios.install()
+    })
+
+    afterEach(function () {
+      // import and pass your custom axios instance to this method
+      moxios.uninstall()
+    })
+
+    it('without crashing', () => {
+      const div = document.createElement('div');
+      ReactDOM.render(<App />, div);
+      ReactDOM.unmountComponentAtNode(div);
+    })
 });
