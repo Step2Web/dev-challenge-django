@@ -13,7 +13,7 @@ export default class CurrencyInput extends Component {
 	}
 
 	handleChange(e) {
-		const value = e.target.value
+		const value = parseInt(e.target.value)
 		this.setState({value})
 		this.props.dispatch(value)
 	}

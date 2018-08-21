@@ -13,7 +13,7 @@ export default class SliderInput extends Component {
 	}
 
 	handleChange(e) {
-		const value = e.target.value
+		const value = parseFloat(e.target.value)
 		this.setState({value})
 		this.props.dispatch(value)
 	}

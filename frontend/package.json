@@ -11,7 +11,9 @@
 		"react-scripts": "1.1.0",
 		"react-redux": "^5.0.7",
 		"redux": "^3.5.2",
-		"moxios": "0.4.0"
+		"moxios": "0.4.0",
+		"sinon": "6.1.5",
+		"lodash.debounce": "4.0.8"
 	},
 	"scripts": {
 		"start": "react-scripts start",

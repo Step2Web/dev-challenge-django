@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import CurrencyInput from "./CurrencyInput"
 import SliderInput from "./SliderInput"
+import InterestFrequencyRadioButtonInput from "./InterestFrequencyRadioButtonInput"
 import DisplayGraph from "./DisplayGraph"
 import "./InputGraphSection.css"
 import { connect } from 'react-redux'
@@ -11,7 +12,9 @@ const mapStateToProps = state => {
         initialSavingsAmount: state.initialSavingsAmount,
         monthlySavingsAmount: state.monthlySavingsAmount,
         interestRate: state.interestRate,
-        forecastLengthInMonths: state.forecastLengthInMonths
+        forecastLengthInMonths: state.forecastLengthInMonths,
+        interestDepositFrequency: state.interestDepositFrequency,
+        forecastResult: state.forecastResult
     }
 }
 
@@ -32,6 +35,10 @@ const mapDispatchToProps = dispatch => {
         forecastLengthInMonthsChanged: (newForecastLengthInMonths) => dispatch({
             type: ActionTypes.FORECAST_LENGTH_IN_MONTHS_CHANGED,
             newForecastLengthInMonths
+        }),
+        interestDepositFrequencyChanged: (newFrequency) => dispatch({
+            type: ActionTypes.INTEREST_DEPOSIT_FREQUENCY_CHANGED,
+            newFrequency
         })
     }
 }
@@ -42,13 +49,13 @@ const INTEREST_RATE_STEPS = 0.25
 const INTEREST_UNITS = '%'
 
 const MIN_MONTHS = 3
-const MAX_MONTHS = 50
+const MAX_MONTHS = 600
 const MONTHS_STEPS = 1
 const MONTHS_UNITS = ' Months'
 
 class InputGraphSection extends Component {
   render() {
-    const { initialSavingsAmount, monthlySavingsAmount, interestRate } = this.props
+    const { initialSavingsAmount, monthlySavingsAmount, interestRate, interestDepositFrequency } = this.props
 
     return (
       <div>
@@ -62,46 +69,21 @@ class InputGraphSection extends Component {
           <p className="input-label">
             How much interest will you earn per year?
           </p>
-          <SliderInput defaultValue={interestRate} min={MIN_INTEREST_RATE} max={MAX_INTEREST_RATE} steps={INTEREST_RATE_STEPS} units={INTEREST_UNITS} dispatch={this.props.interestRateChanged} />
+          <SliderInput defaultValue={interestRate} min={MIN_INTEREST_RATE} max={MAX_INTEREST_RATE} step={INTEREST_RATE_STEPS} units={INTEREST_UNITS} dispatch={this.props.interestRateChanged} />
           <p className="input-label">
             How long are you willing to invest?
           </p>
-          <SliderInput defaultValue={this.props.forecastLengthInMonths} min={MIN_MONTHS} max={MAX_MONTHS} steps={MONTHS_STEPS} units={MONTHS_UNITS} dispatch={this.props.forecastLengthInMonthsChanged} />
+          <SliderInput defaultValue={this.props.forecastLengthInMonths} min={MIN_MONTHS} max={MAX_MONTHS} step={MONTHS_STEPS} units={MONTHS_UNITS} dispatch={this.props.forecastLengthInMonthsChanged} />
+          <p className="input-label">
+            How should your interest be deposited?
+          </p>
+          <InterestFrequencyRadioButtonInput selectedValue={this.props.interestDepositFrequency} dispatch={this.props.interestDepositFrequencyChanged} />
         </div>
         <div className="financial-display">
           {/*We have included some sample data here, you will need to replace this
             with your own. Feel free to change the data structure if you wish.*/}
           <DisplayGraph
-            data={[
-              {
-                month: 1,
-                amount: 500
-              },
-              {
-                month: 2,
-                amount: 700
-              },
-              {
-                month: 3,
-                amount: 1000
-              },
-              {
-                month: 4,
-                amount: 1500
-              },
-              {
-                month: 5,
-                amount: 2000
-              },
-              {
-                month: 6,
-                amount: 3000
-              },
-              {
-                month: 7,
-                amount: 3100
-              }
-            ]}
+            data={this.props.forecastResult}
           />
         </div>
       </div>
