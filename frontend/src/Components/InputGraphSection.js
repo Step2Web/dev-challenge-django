@@ -77,7 +77,7 @@ class InputGraphSection extends Component {
           <p className="input-label">
             How should your interest be deposited?
           </p>
-          <InterestFrequencyRadioButtonInput selectedValue={this.props.interestDepositFrequency} dispatch={this.props.interestDepositFrequencyChanged} />
+          <InterestFrequencyRadioButtonInput selectedValue={interestDepositFrequency} dispatch={this.props.interestDepositFrequencyChanged} />
         </div>
         <div className="financial-display">
           {/*We have included some sample data here, you will need to replace this

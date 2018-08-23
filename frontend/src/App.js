@@ -51,7 +51,7 @@ class App extends Component {
     }
 
 	render() {
-	    const {loading, result} = this.state
+	    const {loading} = this.state
 
 		return (
 			<div className="App">
